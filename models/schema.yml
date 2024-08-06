@@ -4,7 +4,7 @@ version: 2
 models:
   # check if customer_id in model customers are all unique values
   - name: customers
-    descripton: one record per customer
+    description: one record per customer
     columns:
       - name: customer_id
         description: primary key
