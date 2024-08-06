@@ -4,15 +4,21 @@ version: 2
 models:
   # check if customer_id in model customers are all unique values
   - name: customers
+    descripton: one record per customer
     columns:
       - name: customer_id
+        description: primary key
         tests:
           - unique
           - not_null
+      - name: first_order_date
+        description: NULL if a customer has not made their first order
   # same thing for model stg_customers
   - name: stg_customers
+    description: This model cleans up customer data
     columns:
       - name: customer_id
+        description: primary key
         tests:
           - unique
           - not_null
@@ -22,8 +28,10 @@ models:
   # that there are no exclusive values comparing with stg_customers
   # makes sense because only customers with ids existing in dbase should be able to order
   - name: stg_orders
+    description: This model cleans up order data
     columns:
       - name: order_id
+        description: Primary key
         tests:
           - unique
           - not_null
