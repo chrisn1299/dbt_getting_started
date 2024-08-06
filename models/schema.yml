@@ -1,0 +1,39 @@
+version: 2
+
+# models is similar to services in Docker-compose
+models:
+  # check if customer_id in model customers are all unique values
+  - name: customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+  # same thing for model stg_customers
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+  # check in stg_orders if
+  # order id unique values
+  # status column only contains specified values
+  # that there are no exclusive values comparing with stg_customers
+  # makes sense because only customers with ids existing in dbase should be able to order
+  - name: stg_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
