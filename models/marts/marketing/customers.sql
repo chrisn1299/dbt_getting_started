@@ -1,10 +1,5 @@
 -- force materialization as view
 -- override directory level.
-{{
-  config(
-    materialized='view'
-  )
-}}
 
 with customers as (
     -- referencing data from a different model
